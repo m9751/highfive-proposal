@@ -983,6 +983,7 @@ body { background: var(--bg); color: var(--text); }
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  /* ── NAV TAB BEHAVIOR (original) ── */
   var tabs = document.querySelectorAll('.nav-tab');
   tabs.forEach(function(tab) {
     tab.addEventListener('click', function() {
@@ -991,17 +992,121 @@ document.addEventListener('DOMContentLoaded', function() {
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     });
   });
+
   var slides = document.querySelectorAll('.slide');
+
+  /* ── ENGAGEMENT BEACON ── */
+  var SUPABASE_URL = 'https://cnplogkxbjecdeeritdl.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNucGxvZ2t4YmplY2RlZXJpdGRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMjAzMTUsImV4cCI6MjA4Nzg5NjMxNX0.WJ6edMljHiY-fku9G2OWm83y5wHWI5yZHvxtpYMCuWU';
+  var PROPOSAL_ID = 'highfive-proposal';
+
+  // Generate a unique session ID per visit
+  var sessionId = 'sess_' + Math.random().toString(36).substr(2, 12) + '_' + Date.now().toString(36);
+
+  // Get referrer tag from URL param (?ref=mark-edwards)
+  var urlParams = new URLSearchParams(window.location.search);
+  var referrer = urlParams.get('ref') || document.referrer || 'direct';
+
+  // Track which slides have been viewed this session (avoid duplicates)
+  var viewedSlides = {};
+  var slideTimers = {};   // track time per slide
+  var currentSlide = null;
+
+  function beacon(payload) {
+    try {
+      var body = Object.assign({
+        proposal_id: PROPOSAL_ID,
+        session_id: sessionId,
+        referrer: referrer,
+        user_agent: navigator.userAgent.substring(0, 200)
+      }, payload);
+
+      fetch(SUPABASE_URL + '/rest/v1/proposal_engagement', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(body),
+        keepalive: true
+      });
+    } catch (e) { /* silent fail — never break the proposal */ }
+  }
+
+  // Fire proposal_opened on load
+  beacon({ slide_number: 0, event_type: 'proposal_opened', slide_title: 'Cover' });
+
+  // Get slide title from the first heading in each slide
+  function getSlideTitle(slide) {
+    var h = slide.querySelector('h1, h2, .s-num');
+    if (!h) return 'Slide';
+    var num = slide.querySelector('.s-num');
+    var title = slide.querySelector('h1, h2');
+    return (num ? num.textContent.trim() + ' ' : '') + (title ? title.textContent.trim().substring(0, 60) : '');
+  }
+
+  function startSlideTimer(slideIndex) {
+    if (currentSlide === slideIndex) return;
+    // Stop timer on previous slide
+    if (currentSlide !== null && slideTimers[currentSlide]) {
+      var elapsed = (Date.now() - slideTimers[currentSlide]) / 1000;
+      if (elapsed >= 2) {  // only record if they spent 2+ seconds
+        beacon({
+          slide_number: currentSlide + 1,
+          event_type: 'time_on_slide',
+          slide_title: getSlideTitle(slides[currentSlide]),
+          duration_seconds: Math.round(elapsed)
+        });
+      }
+    }
+    currentSlide = slideIndex;
+    slideTimers[slideIndex] = Date.now();
+  }
+
+  /* ── INTERSECTION OBSERVER (nav + beacon combined) ── */
   var obs = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (e.isIntersecting && e.intersectionRatio > 0.4) {
         var i = Array.prototype.indexOf.call(slides, e.target);
+
+        // Update nav tabs (original behavior)
         tabs.forEach(function(t) { t.classList.remove('active'); });
         if (tabs[i]) tabs[i].classList.add('active');
+
+        // Beacon: fire slide_viewed once per slide per session
+        if (!viewedSlides[i]) {
+          viewedSlides[i] = true;
+          beacon({
+            slide_number: i + 1,
+            event_type: 'slide_viewed',
+            slide_title: getSlideTitle(e.target)
+          });
+        }
+
+        // Start timing this slide
+        startSlideTimer(i);
       }
     });
   }, { threshold: 0.4 });
+
   slides.forEach(function(s) { obs.observe(s); });
+
+  // Flush final slide timer on page exit
+  window.addEventListener('beforeunload', function() {
+    if (currentSlide !== null && slideTimers[currentSlide]) {
+      var elapsed = (Date.now() - slideTimers[currentSlide]) / 1000;
+      if (elapsed >= 2) {
+        beacon({
+          slide_number: currentSlide + 1,
+          event_type: 'time_on_slide',
+          slide_title: getSlideTitle(slides[currentSlide]),
+          duration_seconds: Math.round(elapsed)
+        });
+      }
+    }
+  });
 });
 </script>
 </body>
