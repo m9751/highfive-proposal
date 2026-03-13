@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HighFive Healthcare × MuleSoft — Strategic Bridge Proposal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #032D60; --blue: #1589EE; --teal: #0070D2;
+  --orange: #FF7900; --light: #EBF5FF; --bg: #F3F8FE;
+  --white: #FFFFFF; --border: #D8E6F3; --muted: #5A7A99;
+  --text: #032D60; --red: #C23934; --red-lt: #FFF0EF;
+  --green: #027E46; --green-lt: #EDFAF2;
+  --amber: #B7700D; --amber-lt: #FEF9EE;
+  --wf-red: #D71E28; --wf-gold: #FFCD41;
+  --purple: #6B3FA0; --purple-lt: #F5F0FF;
+}
+html { scroll-behavior: smooth; font-family: 'Inter', sans-serif; }
+body { background: var(--bg); color: var(--text); }
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 50px; background: var(--navy);
+  display: flex; align-items: center; padding: 0 16px; gap: 1px;
+}
+.nav-brand { display: flex; align-items: center; gap: 8px; margin-right: 14px; flex-shrink: 0; }
+.nav-dot { width: 26px; height: 26px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: white; }
+.nav-name { font-size: 12px; font-weight: 700; color: white; }
+.nav-sub { font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 0.05em; }
+.nav-tab {
+  padding: 0 9px; height: 50px; display: flex; align-items: center;
+  font-size: 9.5px; font-weight: 500; color: rgba(255,255,255,0.5);
+  border-bottom: 2px solid transparent; cursor: pointer;
+  transition: all 0.2s; white-space: nowrap; letter-spacing: 0.02em;
+}
+.nav-tab:hover { color: white; }
+.nav-tab.active { color: white; border-bottom-color: var(--orange); }
+.nav-right { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; flex-shrink: 0; }
+
+/* SLIDES */
+.slide {
+  min-height: 100vh; padding: 76px 72px 60px;
+  border-bottom: 2px solid var(--border);
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative;
+}
+.s-bg { background: var(--bg); }
+.s-white { background: white; }
+.s-navy { background: var(--navy); }
+.s-light { background: var(--light); }
+.s-purple { background: #1A0A30; }
+
+.snum { position: absolute; top: 64px; right: 72px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; }
+.snum-lt { color: rgba(255,255,255,0.25); }
+
+.eye { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; font-weight: 500; }
+.eye-blue { color: var(--blue); }
+.eye-lt { color: rgba(255,255,255,0.4); }
+.eye-purple { color: #C9A8FF; }
+
+.h1 { font-size: clamp(34px, 5vw, 58px); font-weight: 800; line-height: 1.06; color: var(--navy); margin-bottom: 10px; }
+.h1-lt { color: white; }
+.h2 { font-size: clamp(24px, 3.5vw, 38px); font-weight: 700; line-height: 1.1; color: var(--navy); margin-bottom: 10px; }
+.h2-lt { color: white; }
+.hl { color: var(--blue); }
+.hl-o { color: var(--orange); }
+.hl-p { color: #C9A8FF; }
+.sub { font-size: 15px; color: var(--muted); margin-bottom: 28px; max-width: 680px; line-height: 1.65; }
+.sub-lt { color: rgba(255,255,255,0.6); }
+
+/* GRIDS */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+
+/* CARDS */
+.card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 22px; }
+.card-navy { background: var(--navy); color: white; border: none; }
+.card-blue { background: var(--blue); color: white; border: none; }
+.card-red { background: var(--red-lt); border: 1px solid rgba(194,57,52,0.2); }
+.card-green { background: var(--green-lt); border: 1px solid rgba(2,126,70,0.2); }
+.card-amber { background: var(--amber-lt); border: 1px solid rgba(183,112,13,0.25); }
+.card-dark { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 20px; }
+.card-purple { background: rgba(107,63,160,0.12); border: 1px solid rgba(107,63,160,0.25); border-radius: 8px; padding: 20px; }
+
+/* PILL */
+.pill { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 9px; border-radius: 20px; font-weight: 500; }
+.p-red { background: var(--red-lt); color: var(--red); }
+.p-green { background: var(--green-lt); color: var(--green); }
+.p-amber { background: var(--amber-lt); color: var(--amber); }
+.p-blue { background: var(--light); color: var(--blue); }
+.p-orange { background: #FFF3E8; color: var(--orange); }
+.p-purple { background: var(--purple-lt); color: var(--purple); }
+
+/* SECTION BAR */
+.sbar { background: var(--navy); color: white; padding: 8px 14px; border-radius: 5px; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+.sbar-blue { background: var(--blue); }
+.sbar-green { background: var(--green); }
+.sbar-purple { background: var(--purple); }
+.sbar-orange { background: var(--orange); }
+
+/* FACT ROWS */
+.fr { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; line-height: 1.5; }
+.fr:last-child { border-bottom: none; }
+.fi { flex-shrink: 0; width: 18px; text-align: center; }
+.fr-dk { border-bottom-color: rgba(255,255,255,0.08); }
+.fr-dk .ft { color: rgba(255,255,255,0.75); }
+
+/* BIG NUMBERS */
+.bn { font-size: 50px; font-weight: 800; line-height: 1; color: var(--blue); }
+.bn-o { color: var(--orange); }
+.bn-r { color: var(--red); }
+.bn-g { color: var(--green); }
+.bn-w { color: white; }
+.bn-label { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+.bn-label-lt { color: rgba(255,255,255,0.55); }
+
+/* QUOTES */
+.q { border-left: 4px solid var(--blue); padding: 13px 18px; background: var(--light); border-radius: 0 6px 6px 0; font-size: 14px; font-style: italic; line-height: 1.7; color: var(--navy); }
+.q cite { display: block; margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-style: normal; color: var(--muted); }
+.q-dk { border-left-color: var(--orange); background: rgba(255,121,0,0.08); color: rgba(255,255,255,0.85); }
+.q-dk cite { color: rgba(255,255,255,0.3); }
+.q-red { border-left-color: var(--red); background: var(--red-lt); }
+
+/* HIGHLIGHT BOX */
+.hb { background: var(--amber-lt); border: 1px solid rgba(183,112,13,0.3); border-radius: 6px; padding: 13px 17px; font-size: 13px; line-height: 1.6; }
+.hb strong { color: var(--amber); }
+.hb-blue { background: var(--light); border-color: rgba(21,137,238,0.25); }
+.hb-blue strong { color: var(--blue); }
+.hb-navy { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
+.hb-navy strong { color: var(--orange); }
+.hb-purple { background: rgba(107,63,160,0.08); border-color: rgba(107,63,160,0.2); }
+.hb-purple strong { color: var(--purple); }
+.hb-green { background: var(--green-lt); border-color: rgba(2,126,70,0.25); }
+.hb-green strong { color: var(--green); }
+
+/* TIMELINE */
+.tl { position: relative; padding-left: 26px; }
+.tl::before { content: ''; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 2px; background: var(--border); }
+.tl-item { position: relative; margin-bottom: 15px; }
+.tl-item::before { content: ''; position: absolute; left: -24px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--border); border: 2px solid white; }
+.tl-item.now::before { background: var(--orange); }
+.tl-item.warn::before { background: var(--red); }
+.tl-item.go::before { background: var(--green); }
+.tl-d { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); margin-bottom: 2px; }
+.tl-t { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+/* ARCH */
+.arch { background: #071525; border-radius: 10px; padding: 26px 22px; position: relative; overflow: hidden; }
+.arch::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgba(21,137,238,0.03) 0,rgba(21,137,238,0.03) 1px,transparent 1px,transparent 80px); }
+.arch-row { display: grid; grid-template-columns: 1fr 44px 1fr 44px 1fr 44px 1fr; gap: 0; align-items: center; position: relative; z-index: 1; }
+.arch-col { display: flex; flex-direction: column; gap: 7px; }
+.arch-col-t { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3); text-align: center; margin-bottom: 8px; }
+.ab { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 9px 6px; font-size: 11px; color: rgba(255,255,255,0.7); text-align: center; line-height: 1.3; }
+.ab-blue { background: rgba(21,137,238,0.18); border-color: rgba(21,137,238,0.45); color: #7EC8FF; }
+.ab-orange { background: rgba(255,121,0,0.14); border-color: rgba(255,121,0,0.38); color: #FFB366; }
+.ab-green { background: rgba(2,126,70,0.18); border-color: rgba(2,126,70,0.38); color: #5DDBA0; }
+.aa { text-align: center; color: rgba(255,255,255,0.18); font-size: 18px; padding: 0 4px; }
+.aa-s { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: rgba(255,255,255,0.18); text-align: center; display: block; }
+
+/* PROPOSAL BOX */
+.pbox { background: var(--navy); border: 2px solid var(--blue); border-radius: 10px; overflow: hidden; }
+.pbox-top { background: var(--blue); padding: 18px 26px; display: flex; align-items: center; justify-content: space-between; }
+.pbox-title { font-size: 20px; font-weight: 700; color: white; }
+.pbox-price { font-size: 40px; font-weight: 800; color: white; line-height: 1; }
+.pbox-price-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.65); text-align: right; margin-top: 2px; }
+.pbox-body { padding: 22px 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.pbox-stitle { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 10px; }
+.ii { display: flex; gap: 9px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 12px; line-height: 1.5; color: rgba(255,255,255,0.8); }
+.ii:last-child { border-bottom: none; }
+.chk { color: #5DDBA0; font-weight: 700; flex-shrink: 0; }
+.mi { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.mi:last-child { border-bottom: none; }
+.mo { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--orange); min-width: 46px; font-weight: 500; padding-top: 1px; }
+.mt { font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.4; }
+
+/* GARTNER BARS */
+.gb-group { margin: 8px 0; }
+.gb-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.gb-track { height: 24px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.gb-fill { height: 100%; display: flex; align-items: center; padding: 0 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: white; }
+
+/* STEPS */
+.step-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-top: 3px solid var(--orange); border-radius: 7px; padding: 20px 17px; }
+.step-num { font-size: 42px; font-weight: 800; color: rgba(255,121,0,0.22); line-height: 1; margin-bottom: 8px; }
+.step-title { font-size: 14px; font-weight: 700; color: white; margin-bottom: 7px; }
+.step-desc { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+.step-who { margin-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--orange); }
+
+/* CONTACT BAR */
+.cbar { background: rgba(21,137,238,0.1); border: 1px solid rgba(21,137,238,0.22); border-radius: 7px; padding: 16px 20px; display: grid; grid-template-columns: repeat(3,1fr); gap: 0; margin-top: 18px; }
+.ci { padding: 0 14px; border-right: 1px solid rgba(255,255,255,0.1); }
+.ci:first-child { padding-left: 0; }
+.ci:last-child { border-right: none; }
+.ci-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 5px; }
+.ci-name { font-size: 15px; font-weight: 700; color: white; }
+.ci-role { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+.ci-info { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--blue); margin-top: 3px; }
+
+/* FOOTER */
+.sf { position: absolute; bottom: 18px; left: 72px; right: 72px; display: flex; align-items: center; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.07em; }
+.sf-lt { color: rgba(255,255,255,0.18); }
+.sf-line { width: 36px; height: 1px; background: var(--border); }
+.sf-line-lt { background: rgba(255,255,255,0.1); }
+
+/* CareStack columns */
+.cs-g { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cs-card { border-radius: 7px; overflow: hidden; }
+.cs-head { padding: 11px 16px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 7px; }
+.cs-head-g { background: var(--green); color: white; }
+.cs-head-r { background: var(--red); color: white; }
+.cs-body { background: white; padding: 14px 16px; border: 1px solid var(--border); border-top: none; }
+.cs-item { display: flex; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 12px; line-height: 1.4; }
+.cs-item:last-child { border-bottom: none; }
+
+/* WELLS FARGO */
+.gwt { width: 100%; border-collapse: collapse; }
+.gwt th { background: var(--wf-red); color: white; padding: 8px 12px; text-align: left; font-weight: 600; font-size: 12px; }
+.gwt th:first-child { border-radius: 5px 0 0 0; }
+.gwt th:last-child { border-radius: 0 5px 0 0; }
+.gwt td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 12px; }
+.gwt tr:nth-child(even) td { background: #FFF8F8; }
+.gwt .feature { font-weight: 600; color: var(--navy); }
+
+/* EBITDA BARS */
+.eb-row { margin: 7px 0; }
+.eb-label { display: flex; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.45); margin-bottom: 4px; }
+.eb-track { height: 24px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
+.eb-fill { height: 100%; display: flex; align-items: center; padding: 0 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: white; }
+.eb-r { background: rgba(194,57,52,0.65); width: 65%; }
+.eb-g { background: rgba(2,126,70,0.75); width: 100%; }
+
+/* COMP TABLE */
+.ct { width: 100%; border-collapse: collapse; }
+.ct th { background: var(--navy); color: white; padding: 9px 12px; font-size: 12px; font-weight: 600; text-align: left; }
+.ct th:first-child { border-radius: 5px 0 0 0; }
+.ct th:last-child { border-radius: 0 5px 0 0; }
+.ct td { padding: 9px 12px; font-size: 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.ct tr:nth-child(even) td { background: var(--light); }
+.ct .hf { background: rgba(2,126,70,0.05); }
+.ct .sdp { background: rgba(194,57,52,0.04); }
+.ct .r { color: var(--red); font-weight: 600; }
+.ct .g { color: var(--green); font-weight: 600; }
+.ct .a { color: var(--amber); font-weight: 600; }
+
+/* COVER */
+.cover-strip { position: absolute; top: 0; bottom: 0; left: 0; width: 7px; background: var(--orange); }
+.cover-layout { display: grid; grid-template-columns: 1fr 300px; gap: 52px; align-items: center; }
+.cover-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 7px; overflow: hidden; margin-top: 28px; }
+.cm-item { background: rgba(255,255,255,0.04); padding: 13px 17px; }
+.cm-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+.cm-value { font-size: 17px; font-weight: 700; color: white; }
+.cm-value.o { color: var(--orange); }
+.cover-right { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 9px; padding: 22px; }
+.cr-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 14px; }
+.exec { display: flex; gap: 11px; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.exec:last-child { border-bottom: none; }
+.ea { width: 30px; height: 30px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: white; flex-shrink: 0; }
+.en { font-size: 13px; font-weight: 600; color: white; }
+.er { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 1px; }
+.ec { font-size: 10px; color: var(--orange); margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
+
+/* CONSENSUS BUTTON */
+.btn-consensus {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--orange); color: white;
+  padding: 12px 22px; border-radius: 7px;
+  font-size: 14px; font-weight: 700;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 14px;
+}
+.btn-consensus:hover { opacity: 0.88; }
+.btn-consensus .play { width: 24px; height: 24px; background: rgba(255,255,255,0.22); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+
+/* SIGNATURE BOX */
+.sig-box { margin-top: 18px; background: rgba(255,121,0,0.08); border: 2px solid rgba(255,121,0,0.35); border-radius: 8px; padding: 18px 24px; }
+.sig-deadline { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; font-weight: 600; }
+.sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.sig-field { border-bottom: 1px solid rgba(255,255,255,0.25); padding-bottom: 8px; }
+.sig-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; }
+
+/* PE SLIDE */
+.pe-numbers { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin: 24px 0; }
+.pe-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 7px; padding: 20px 16px; text-align: center; }
+.pe-num { font-size: 44px; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 5px; }
+.pe-label { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.4; }
+.pe-sub { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); margin-top: 5px; letter-spacing: 0.05em; }
+
+/* ANGELA USE CASE CARDS */
+.uc-card { background: white; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.uc-head { padding: 14px 18px; display: flex; align-items: center; gap: 10px; }
+.uc-head-green { background: var(--green); }
+.uc-head-blue { background: var(--blue); }
+.uc-head-purple { background: var(--purple); }
+.uc-icon { font-size: 20px; }
+.uc-title { font-size: 15px; font-weight: 700; color: white; }
+.uc-subtitle { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 1px; }
+.uc-body { padding: 16px 18px; }
+.uc-item { display: flex; gap: 9px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 12px; line-height: 1.5; }
+.uc-item:last-child { border-bottom: none; }
+.uc-bullet { color: var(--green); font-weight: 700; flex-shrink: 0; }
+.uc-bullet-blue { color: var(--blue); }
+.uc-outcome { background: var(--green-lt); border: 1px solid rgba(2,126,70,0.2); border-radius: 5px; padding: 9px 12px; margin-top: 10px; font-size: 12px; }
+.uc-outcome-blue { background: var(--light); border-color: rgba(21,137,238,0.2); }
+.uc-outcome-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--green); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; margin-bottom: 3px; }
+.uc-outcome-label-blue { color: var(--blue); }
+.idp-caveat { background: var(--amber-lt); border: 1px solid rgba(183,112,13,0.3); border-radius: 5px; padding: 8px 12px; margin-top: 8px; font-size: 11px; color: var(--amber); }
+.idp-caveat strong { font-weight: 700; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-dot">M</div>
+    <div><div class="nav-name">MuleSoft <span style="color:rgba(255,255,255,0.3);font-weight:400;">from</span> Salesforce</div><div class="nav-sub">HEALTHCARE · PROVIDER</div></div>
+  </div>
+  <div class="nav-tab active" data-target="s1">Cover</div>
+  <div class="nav-tab" data-target="s2">For Angela</div>
+  <div class="nav-tab" data-target="s3">Situation</div>
+  <div class="nav-tab" data-target="s4">CareStack</div>
+  <div class="nav-tab" data-target="s5">Gartner</div>
+  <div class="nav-tab" data-target="s6">SDP Warning</div>
+  <div class="nav-tab" data-target="s7">Wells Fargo</div>
+  <div class="nav-tab" data-target="s8">Architecture</div>
+  <div class="nav-tab" data-target="s9">OpenClaw</div>
+  <div class="nav-tab" data-target="s10">Governance</div>
+  <div class="nav-tab" data-target="s11">PE · Norwest</div>
+  <div class="nav-tab" data-target="s12">Proposal</div>
+  <div class="nav-tab" data-target="s13">Next Steps</div>
+  <div class="nav-right">HIGHFIVE · CONFIDENTIAL · MAR 2026</div>
+</nav>
+
+<!-- ================================================================ SLIDE 1: COVER -->
+<section class="slide s-navy" id="s1">
+  <div class="cover-strip"></div>
+  <div class="snum snum-lt">01 / 13</div>
+  <div class="cover-layout">
+    <div>
+      <div class="eye eye-lt">Prepared for HighFive Healthcare Leadership</div>
+      <h1 class="h1 h1-lt">You just went live<br>on CareStack.<br><span class="hl-o">Here's what it doesn't solve.</span></h1>
+      <p class="sub sub-lt" style="max-width:540px;">A straight read on where you are, what CareStack covers, and what your growth engine needs to scale from 62 offices to exit — without repeating the mistakes of your nearest competitor.</p>
+      <div class="cover-meta">
+        <div class="cm-item"><div class="cm-label">Proposal Term</div><div class="cm-value o">6 Months</div></div>
+        <div class="cm-item"><div class="cm-label">Investment</div><div class="cm-value o">$25,000</div></div>
+        <div class="cm-item"><div class="cm-label">Renewal Deadline</div><div class="cm-value">Apr 29, 2026</div></div>
+        <div class="cm-item"><div class="cm-label">Signature Requested</div><div class="cm-value o">Mar 31, 2026</div></div>
+      </div>
+      <!-- CONSENSUS DEMO LINK -->
+      <a class="btn-consensus" href="https://play.goconsensus.com/a382cb529" target="_blank" rel="noopener">
+        <span class="play">▶</span>
+        Watch the Interactive Demo — 3 min
+      </a>
+    </div>
+    <div class="cover-right">
+      <div class="cr-title">Prepared For</div>
+      <div class="exec">
+        <div class="ea">ME</div>
+        <div><div class="en">Mark Edwards, PMP</div><div class="er">VP Technology Innovation · Decision Maker</div><div class="ec">615-630-1063 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a7eac6d5cc89e2c3d0c6d5c3d4e7cfcec0cf92cfc2c6cbd3cf89c4c8ca">[email&#160;protected]</a></div></div>
+      </div>
+      <div class="exec">
+        <div class="ea" style="background:#3A5F80;">KR</div>
+        <div><div class="en">Knox Richardson</div><div class="er">Director, Digital Transformation</div></div>
+      </div>
+      <div class="exec">
+        <div class="ea" style="background:var(--green);">AT</div>
+        <div><div class="en">Angela Trull</div><div class="er">Chief Growth Officer · Growth &amp; Recruitment</div></div>
+      </div>
+      <div class="exec">
+        <div class="ea" style="background:var(--amber);">RH</div>
+        <div><div class="en">Dr. Ryan A. Harris</div><div class="er">GP, Norwest Venture Partners · Board</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf sf-lt"><span>MULESOFT HEALTHCARE · PROVIDER SEGMENT · MARCH 2026</span><div class="sf-line sf-line-lt"></div><span>CONFIDENTIAL</span></div>
+</section>
+
+<!-- ================================================================ SLIDE 2: FOR ANGELA — GROWTH ENGINE -->
+<section class="slide s-bg" id="s2">
+  <div class="snum">02 / 13</div>
+  <div class="eye">For Angela Trull · Chief Growth Officer</div>
+  <h2 class="h2">Your growth engine is only as fast<br>as <span class="hl">the systems behind it.</span></h2>
+  <p class="sub" style="margin-bottom:14px;">You own doctor recruitment, practice growth, and the referral pipeline. At 62 locations — and growing — the manual overhead compounds with every new office. These use cases are designed around your KPIs.</p>
+
+  <div class="g2" style="margin-bottom:16px;">
+    <!-- USE CASE 1: Doctor Onboarding (IDP) -->
+    <div class="uc-card">
+      <div class="uc-head uc-head-green">
+        <div class="uc-icon">🩺</div>
+        <div>
+          <div class="uc-title">1. Accelerated Doctor Onboarding</div>
+          <div class="uc-subtitle">Intelligent Document Processing · Illustrative Use Case, not included in 6-Month Scope</div>
+        </div>
+      </div>
+      <div class="uc-body">
+        <div class="uc-item"><span class="uc-bullet">→</span><span><strong>Automated Credentialing:</strong> Extract data from CVs, board certifications, state licenses, and DEA registrations directly into Salesforce and CareStack — no manual re-entry.</span></div>
+        <div class="uc-item"><span class="uc-bullet">→</span><span><strong>80% Manual Labor Reduction:</strong> Eliminate repetitive data entry for your onboarding team, removing administrative drag from every new doctor hire.</span></div>
+        <div class="uc-item"><span class="uc-bullet">→</span><span><strong>Golden Record Accuracy:</strong> Every provider record flows from a single verified source — one dataset shared across Salesforce, CareStack, and payroll, with human error removed from the scaling process.</span></div>
+        <div class="uc-outcome">
+          <div class="uc-outcome-label">Growth Outcome</div>
+          Faster time-to-productivity per new doctor hire. At 62 offices scaling to 100+, onboarding speed is a direct revenue constraint — every week of delay is a week of production lost.
+        </div>
+        <div class="idp-caveat">
+          <strong>⚠ IDP Scope Note:</strong> Intelligent Document Processing is presented here to illustrate what the full MuleSoft integration platform enables. IDP capabilities are <strong>not included in the 6-month $25K scope</strong> — they are available as a subsequent phase once the integration foundation is live.
+        </div>
+      </div>
+    </div>
+
+    <!-- USE CASE 2: Recruitment & Retention (Agent Fabric) -->
+    <div class="uc-card">
+      <div class="uc-head uc-head-blue">
+        <div class="uc-icon">🎯</div>
+        <div>
+          <div class="uc-title">2. Intelligent Recruitment &amp; Retention</div>
+          <div class="uc-subtitle">Powered by MuleSoft Agent Fabric · Included in 6-Month Scope</div>
+        </div>
+      </div>
+      <div class="uc-body">
+        <div class="uc-item"><span class="uc-bullet uc-bullet-blue">→</span><span><strong>Recruitment Concierge:</strong> VoIP integration instantly recognizes high-value candidates. Before the call is answered, your recruiter receives an AI-generated briefing on that candidate's last interaction, term sheet status, and relevant background — pulled from Salesforce in real time.</span></div>
+        <div class="uc-item"><span class="uc-bullet uc-bullet-blue">→</span><span><strong>Automated Re-Activation:</strong> AI identifies "Closed-Lost" candidates at the 6-month mark and initiates natural, voice-based check-ins from local office numbers — re-opening conversations without manual outreach effort.</span></div>
+        <div class="uc-item"><span class="uc-bullet uc-bullet-blue">→</span><span><strong>Candidate Experience:</strong> Every touchpoint — initial inquiry, term sheet delivery, onboarding — can be instrumented, tracked, and automated so candidates feel prioritized at every stage.</span></div>
+        <div class="uc-outcome uc-outcome-blue">
+          <div class="uc-outcome-label uc-outcome-label-blue">Growth Outcome</div>
+          Protects and strengthens HighFive's reported 95%+ doctor close rate as headcount goals increase and competition for oral surgery talent intensifies.
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);margin-top:5px;">† Close rate as reported by HighFive Healthcare</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="hb hb-blue">
+      <strong>What this means for Angela's team:</strong> Today, every new practice acquisition means manually re-entering provider data across CareStack, Salesforce, and payroll. At 62 locations that's manageable. At 100+ it becomes the bottleneck. The integration layer removes that ceiling — so growth isn't limited by onboarding throughput.
+    </div>
+    <div class="hb hb-green">
+      <strong>What this means for Angela's close rate:</strong> You've built a 95%+ doctor recruitment close rate on relationships and process. Agent Fabric operationalizes that process — so it scales with headcount and works even when key recruiters are unavailable, on leave, or managing multiple candidates simultaneously.
+    </div>
+  </div>
+
+  <div class="sf"><span>USE CASE 1 (IDP): ASPIRATIONAL — NOT IN 6-MONTH SCOPE · USE CASE 2 (AGENT FABRIC): INCLUDED IN SCOPE</span><div class="sf-line"></div><span>ANGELA TRULL · CGO · HIGH5HEALTH.COM</span></div>
+</section>
+
+<!-- ================================================================ SLIDE 3: SITUATION -->
+<section class="slide s-white" id="s3">
+  <div class="snum">03 / 13</div>
+  <div class="eye">Starting Point — No Spin</div>
+  <h2 class="h2">The honest account<br>of <span class="hl">where things stand.</span></h2>
+  <p class="sub">This proposal doesn't defend the past. It builds on the CareStack foundation you just created and the growth momentum Angela's team has established.</p>
+  <div class="g2" style="margin-top:4px;">
+    <div>
+      <div class="sbar">MuleSoft Account — Current State</div>
+      <div class="card">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;">
+          <div><div class="bn bn-r" style="font-size:44px;">0%</div><div class="bn-label">Utilization on 5 of 7<br>core metrics</div></div>
+          <div><div class="bn" style="font-size:44px;">2</div><div class="bn-label">Support cases in<br>24 months</div></div>
+        </div>
+        <div class="fr"><span class="fi">✅</span><span>doctor-logic-webhook — Active</span></div>
+        <div class="fr"><span class="fi">✅</span><span>high5-swell-prc-api — Active, underutilized</span></div>
+        <div class="fr"><span class="fi">✅</span><span>high5-sikka-blob-api — Active, underutilized</span></div>
+        <div class="fr"><span class="fi">❌</span><span>No Experience Layer APIs — no patient portal or growth automation</span></div>
+        <div class="fr"><span class="fi">❌</span><span>No Finance/Billing integration across 62 offices</span></div>
+        <div class="fr"><span class="fi">⚠️</span><span><strong>40-min manual referral process</strong> — confirmed July 2025</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="sbar">Why MuleSoft Wasn't Activated</div>
+      <div class="card" style="margin-bottom:16px;">
+        <div class="fr"><span class="fi">🔴</span><span>Purchased for a future integration vision — no SI engaged to build it</span></div>
+        <div class="fr"><span class="fi">🔴</span><span>CareStack pilot (Sep 2024) created uncertainty: "Does MuleSoft overlap?"</span></div>
+        <div class="fr"><span class="fi">🔴</span><span>COO cost-cut 52% of CRM licenses Oct 2024 — budget scrutiny followed</span></div>
+        <div class="fr"><span class="fi">🔴</span><span>New COO Aug 2024 — leadership transition reset priorities</span></div>
+      </div>
+      <div class="hb">
+        <strong>Mark's position:</strong> "If we are not able to get a month-to-month agreement for MuleSoft, we will likely go ahead and provide notice for cancellation."<br><br>
+        This is a <strong>structured 6-month proof-of-value at $25K</strong> — not month-to-month — with documented milestones and a clean go/no-go at month 6. You control the outcome.
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span>ACCOUNT: 0010M00001XxvI6QAJ · TOTAL ARR: $64K · MULESOFT: $44K · CRM: $20.6K</span><div class="sf-line"></div><span>RENEWAL: APR 29, 2026</span></div>
+</section>
+
+<!-- ================================================================ SLIDE 4: CARESTACK REALITY -->
+<section class="slide s-bg" id="s4">
+  <div class="snum">04 / 13</div>
+  <div class="eye">Agnostic Assessment</div>
+  <h2 class="h2">CareStack is excellent.<br><span class="hl">It is also not the whole answer.</span></h2>
+  <p class="sub">You made a good call going live on CareStack. Here is a straight read on what it covers and what it doesn't — because confusing the two is how DSOs end up buying reactive band-aids at 200 locations.</p>
+  <div class="cs-g" style="margin-bottom:18px;">
+    <div class="cs-card" style="border:2px solid var(--green);border-radius:7px;overflow:hidden;">
+      <div class="cs-head cs-head-g">✅ &nbsp; What CareStack handles</div>
+      <div class="cs-body">
+        <div class="cs-item"><span>🦷</span> Clinical charting, scheduling, treatment planning per office</div>
+        <div class="cs-item"><span>💳</span> In-office billing, CS Pay, electronic claims and payments</div>
+        <div class="cs-item"><span>📞</span> VoiceStack™ — AI call handling per office (coming soon)</div>
+        <div class="cs-item"><span>📊</span> Per-office analytics and configurable dashboards</div>
+        <div class="cs-item"><span>🔗</span> Native integrations with major dental partners (Aeka, DoctorLogic, etc.)</div>
+        <div class="cs-item"><span>🔒</span> HIPAA · SOC 2 Type 2 · ISO 27001 — compliance at PMS layer</div>
+      </div>
+    </div>
+    <div class="cs-card" style="border:2px solid var(--red);border-radius:7px;overflow:hidden;">
+      <div class="cs-head cs-head-r">❌ &nbsp; What CareStack does NOT handle</div>
+      <div class="cs-body">
+        <div class="cs-item"><span>🔴</span> Cross-system orchestration: Salesforce ↔ CareStack ↔ Swell ↔ Sikka in one flow</div>
+        <div class="cs-item"><span>🔴</span> Unified enterprise reporting across 62 offices for Norwest board deck</div>
+        <div class="cs-item"><span>🔴</span> Doctor recruitment pipeline automation (Salesforce → CareStack onboarding)</div>
+        <div class="cs-item"><span>🔴</span> AI agent governance — audit trail when multiple agents touch PHI</div>
+        <div class="cs-item"><span>🔴</span> Third-party AI coordination (VoiceStack™ is CareStack-only, not multi-system)</div>
+        <div class="cs-item"><span>🔴</span> OpenClaw or any external AI tool governed under a unified HIPAA policy</div>
+      </div>
+    </div>
+  </div>
+  <div class="hb hb-blue">
+    <strong>The correct framing:</strong> CareStack is your Practice OS — it runs each of your 62 offices. MuleSoft is the Nervous System that makes those 62 instances behave like one enterprise. Espire Dental (CareStack customer, 30+ locations) logged <strong>27 million API calls through an integration layer</strong> to consolidate their CareStack data. That need doesn't disappear because CareStack is good. It grows because CareStack is good and you're scaling.
+  </div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);text-align:right;margin-top:6px;">Source: carestack.com · Espire Dental case study · Forrester TEI of CareStack (Oct 2023)</div>
+  <div class="sf"><span>CARESTACK: HIPAA · SOC 2 TYPE 2 · ISO 27001:2022 · NOT A REPLACEMENT FOR AN ENTERPRISE INTEGRATION LAYER</span><div class="sf-line"></div><span>04 / 13</span></div>
+</section>
+
+<!-- ================================================================ SLIDE 5: GARTNER -->
+<section class="slide s-white" id="s5">
+  <div class="snum">05 / 13</div>
+  <div class="eye eye-blue">Gartner Research · August 2025</div>
+  <h2 class="h2">HighFive will inherit an AI agent<br>problem <span class="hl">whether it plans for one or not.</span></h2>
+  <p class="sub">Gartner's finding is direct: organizations without an agentic AI strategy in the next 3–6 months will inherit unmanaged agent sprawl — the same pattern MuleSoft was originally built to solve for APIs.</p>
+  <div class="g2" style="margin-top:4px;">
+    <div>
+      <div class="sbar">Gartner Projections — Agentic AI Adoption</div>
+      <div class="gb-group"><div class="gb-label"><span>Task-specific AI agents in enterprise apps — Today</span><span style="color:var(--red);font-weight:700;">&lt;5%</span></div><div class="gb-track"><div class="gb-fill" style="width:5%;background:var(--red);">Today</div></div></div>
+      <div class="gb-group"><div class="gb-label"><span>Task-specific agents in enterprise apps — End 2026</span><span style="color:var(--blue);font-weight:700;">40%</span></div><div class="gb-track"><div class="gb-fill" style="width:40%;background:var(--blue);">40%</div></div></div>
+      <div class="gb-group"><div class="gb-label"><span>User experiences shifting to agentic front ends — 2028</span><span style="color:var(--orange);font-weight:700;">33%</span></div><div class="gb-track"><div class="gb-fill" style="width:33%;background:var(--orange);">33%</div></div></div>
+      <div class="gb-group"><div class="gb-label"><span>Knowledge workers governing/building agents — 2029</span><span style="color:var(--green);font-weight:700;">50%+</span></div><div class="gb-track"><div class="gb-fill" style="width:50%;background:var(--green);">50%</div></div></div>
+      <div class="q" style="margin-top:16px;">
+        "C-level executives have a <strong>crucial three- to six-month window</strong> to define their agentic AI strategy… Organizations that do not plan to develop agentic capabilities risk falling behind their peers."
+        <cite>— Gartner, Anushree Verma, Sr. Director Analyst · August 2025</cite>
+      </div>
+    </div>
+    <div>
+      <div class="sbar">The 5-Stage Agentic Evolution (Gartner)</div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div style="padding:11px 14px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start;">
+          <div style="width:26px;height:26px;background:var(--navy);border-radius:50%;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
+          <div><div style="font-size:12px;font-weight:700;">AI Assistants Per App</div><div style="font-size:11px;color:var(--muted);">Most enterprise apps embed AI assistants by end 2025. <span class="pill p-amber">CareStack VoiceStack™ — Stage 1</span></div></div>
+        </div>
+        <div style="padding:11px 14px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start;background:var(--light);">
+          <div style="width:26px;height:26px;background:var(--orange);border-radius:50%;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
+          <div><div style="font-size:12px;font-weight:700;color:var(--navy);">Task-Specific Agent Apps</div><div style="font-size:11px;color:var(--muted);">40% of apps with task-specific agents by 2026. <span class="pill p-orange">HighFive needs a strategy — now</span></div></div>
+        </div>
+        <div style="padding:11px 14px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start;">
+          <div style="width:26px;height:26px;background:var(--muted);border-radius:50%;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
+          <div><div style="font-size:12px;font-weight:700;">Collaborative Agents Within Apps</div><div style="font-size:11px;color:var(--muted);">Agents combine skills for complex tasks. MuleSoft Agent Broker manages this layer.</div></div>
+        </div>
+        <div style="padding:11px 14px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start;">
+          <div style="width:26px;height:26px;background:var(--muted);border-radius:50%;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</div>
+          <div><div style="font-size:12px;font-weight:700;">AI Agent Ecosystems Across Apps</div><div style="font-size:11px;color:var(--muted);">By 2028: 33% of user experiences shift to agentic front ends.</div></div>
+        </div>
+        <div style="padding:11px 14px;display:flex;gap:10px;align-items:flex-start;">
+          <div style="width:26px;height:26px;background:var(--muted);border-radius:50%;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">5</div>
+          <div><div style="font-size:12px;font-weight:700;">Democratized Enterprise AI</div><div style="font-size:11px;color:var(--muted);">By 2029: 50%+ of knowledge workers building/governing agents.</div></div>
+        </div>
+      </div>
+      <div class="hb" style="margin-top:12px;"><strong>For Angela specifically:</strong> CareStack VoiceStack™ will become the primary voice AI for in-office calls. Salesforce Agentforce will become the recruitment AI. OpenClaw is already in use. Without a governance layer, Angela's team has three AI systems touching candidate and patient data with no unified policy and no audit trail.</div>
+    </div>
+  </div>
+  <div class="sf"><span>SOURCE: GARTNER "FUTURE OF AGENTIC AI IN ENTERPRISE APPLICATIONS" · AUGUST 2025 · UPDATED SEP 5, 2025</span><div class="sf-line"></div><span>05 / 13</span></div>
+</section>
+
+<!-- ================================================================ SLIDE 6: SDP -->
+<section class="slide s-bg" id="s6">
+  <div class="snum">06 / 13</div>
+  <div class="eye">Competitive Intelligence</div>
+  <h2 class="h2">Your nearest comparator <span class="hl">hit the wall.</span><br>You are 18–24 months behind them on the same curve.</h2>
+  <p class="sub">Specialized Dental Partners — oral surgery + endodontics, founded 2018, same year as HighFive — publicly documented what happens when a DSO scales without integration infrastructure.</p>
+  <div style="overflow-x:auto;margin-bottom:18px;">
+    <table class="ct">
+      <thead><tr><th style="width:26%;">Metric</th><th class="hf" style="width:37%;">HighFive Healthcare · Today</th><th class="sdp" style="width:37%;">Specialized Dental Partners · Now</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Revenue</strong></td><td class="hf">$80.7M</td><td class="sdp">$293.6M (3.6× larger)</td></tr>
+        <tr><td><strong>Founded</strong></td><td class="hf">2018</td><td class="sdp">2018 — same year</td></tr>
+        <tr><td><strong>Locations</strong></td><td class="hf">~62 · 11 states</td><td class="sdp r">275+ · 36 states</td></tr>
+        <tr><td><strong>PE Capital</strong></td><td class="hf g">$145M · Norwest (Jun 2023)</td><td class="sdp">$325M (Quad-C)</td></tr>
+        <tr><td><strong>PMS Fragmentation</strong></td><td class="hf g">CareStack rollout underway</td><td class="sdp r">12 confirmed PMS at wall-hit</td></tr>
+        <tr><td><strong>Integration Layer</strong></td><td class="hf a">MuleSoft — underutilized, decision now</td><td class="sdp r">None — reactive point solutions</td></tr>
+        <tr><td><strong>Crisis Status</strong></td><td class="hf g">Pre-crisis — window open</td><td class="sdp r">Pearly + Coupa — band-aids</td></tr>
+        <tr><td><strong>AI/Agent Strategy</strong></td><td class="hf a">No formal strategy yet</td><td class="sdp r">CEO Jan 2026: "We'll make mistakes"</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="g2">
+    <div class="q">"Because SDP's practices used 12 diverse PMS systems, many RCM software solutions were inadequate. The hours saved and the consistency of patient outreach collection has been our <strong>saving grace</strong>."<cite>— Director RCM, Specialized Dental Partners · Pearly Case Study 2024</cite></div>
+    <div class="q q-red">"There are a lot of amazing, great point solutions out there… Picking the right ones and understanding what's really going to add value… <strong>we're going to make mistakes.</strong>"<cite>— Scotte Hudsmith, CEO, Specialized Dental Partners · Becker's Dental, January 2026</cite></div>
+  </div>
+  <div class="sf"><span>SOURCES: PEARLY CASE STUDY 2024 · BECKER'S DENTAL JAN 2026 · PR NEWSWIRE NOV 2025 · SDP ZI: 528387325</span><div class="sf-line"></div><span>06 / 13</span></div>
+</section>
+
+<!-- ================================================================ SLIDE 7: WELLS FARGO CREDIBILITY -->
+<section class="slide s-white" id="s7">
+  <div class="snum">07 / 13</div>
+  <div class="eye eye-blue">Proof at Scale — Enterprise Credibility</div>
+  <h2 class="h2">The largest financial institution<br>in the US <span class="hl">runs on this architecture.</span></h2>
+  <p class="sub">Before the conversation about whether MuleSoft is right for HighFive, it is worth knowing who built their enterprise integration strategy on it — and what they built.</p>
+  <div class="g2" style="margin-bottom:20px;align-items:start;">
+    <div>
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding:18px 20px;background:#FFF8F8;border:2px solid var(--wf-red);border-radius:8px;">
+        <div style="background:var(--wf-red);width:52px;height:52px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:28px;">🏦</div>
+        <div>
+          <div style="font-size:22px;font-weight:900;color:var(--wf-red);letter-spacing:-0.02em;line-height:1;">Wells Fargo</div>
+          <div style="font-size:10px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-top:2px;">270,000+ employees · 70M+ customers · 8,500+ locations</div>
+        </div>
+        <div style="margin-left:auto;text-align:right;">
+          <div style="font-size:22px;font-weight:800;color:var(--wf-red);">8-Figure</div>
+          <div style="font-size:10px;color:var(--muted);letter-spacing:0.05em;">Enterprise MuleSoft Relationship</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);margin-top:2px;">† Based on enterprise scale &amp; published case study</div>
+        </div>
+      </div>
+      <div class="sbar sbar-blue">Wells Fargo Gateway — Built on MuleSoft API-Led Connectivity</div>
+      <div class="card" style="margin-bottom:14px;">
+        <div class="fr"><span class="fi">🏗</span><span><strong>What they built:</strong> Wells Fargo Gateway — a Banking-as-a-Service (BaaS) platform exposing APIs for payments, accounts, FX, and commercial lending to third-party developers and FinTech partners.</span></div>
+        <div class="fr"><span class="fi">🔁</span><span><strong>API-led architecture:</strong> Reusable System, Process, and Experience API layers — the same three-tier model applicable to HighFive's CareStack + Salesforce + VoIP stack.</span></div>
+        <div class="fr"><span class="fi">⚡</span><span><strong>Speed outcome:</strong> IT project delivery accelerated from months to weeks. Each new integration builds on what already exists — no duplicate code, no rework.</span></div>
+        <div class="fr"><span class="fi">🔒</span><span><strong>Security model:</strong> OAuth 2.0 · TLS 1.2+ / mTLS · FDX data standards. Eliminates credential-sharing — the same PII protection pattern MuleSoft deploys for healthcare PHI.</span></div>
+      </div>
+      <div class="q">"Our application network is going to be the backbone for all APIs to provide access to the vast amount of information we have available. With reusable APIs, our time to delivery has certainly improved."<cite>— Sid Vyas, CTO Capital Markets &amp; Investment Banking · Wells Fargo</cite></div>
+    </div>
+    <div>
+      <div class="sbar">The Three-Layer Architecture — Applied to HighFive</div>
+      <div class="card" style="padding:0;overflow:hidden;margin-bottom:14px;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);background:var(--light);">
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:4px;">System APIs — Data Access Layer</div>
+          <div style="font-size:12px;color:var(--muted);">At Wells Fargo: core banking, account balances, transaction history. At HighFive: CareStack PMS data, Salesforce CRM, Swell patient data, Sikka practice metrics, provider credentials.</div>
+        </div>
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:4px;">Process APIs — Business Logic Layer</div>
+          <div style="font-size:12px;color:var(--muted);">At Wells Fargo: payment orchestration, FX execution. At HighFive: referral automation, doctor recruitment workflow, after-hours booking logic, onboarding automation, RCM across 62 offices.</div>
+        </div>
+        <div style="padding:12px 16px;">
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:4px;">Experience APIs — Consumption Layer</div>
+          <div style="font-size:12px;color:var(--muted);">At Wells Fargo: Gateway developer portal for FinTech partners. At HighFive: Angela's growth dashboard, Mark's unified ops view, Norwest board reporting across all 62 locations.</div>
+        </div>
+      </div>
+      <table class="gwt">
+        <thead><tr><th>Capability</th><th>Wells Fargo</th><th>HighFive Equivalent</th></tr></thead>
+        <tbody>
+          <tr><td class="feature">Auth</td><td>OAuth 2.0 · Consumer Key/Secret</td><td>HIPAA-compliant API auth · PHI governed</td></tr>
+          <tr><td class="feature">Security</td><td>TLS 1.2+ / mTLS for sensitive endpoints</td><td>Flex Gateway encryption + PII masking</td></tr>
+          <tr><td class="feature">Standards</td><td>FDX (Financial Data Exchange)</td><td>HL7 FHIR / dental data standards</td></tr>
+          <tr><td class="feature">Speed</td><td>Months → Weeks for new integrations</td><td>CareStack connector reused across all 62 offices</td></tr>
+          <tr><td class="feature">Governance</td><td>Developer portal, onboarding workflow</td><td>Agent Registry, Agent Visualizer audit trail</td></tr>
+        </tbody>
+      </table>
+      <div class="hb" style="margin-top:14px;"><strong>The compounding principle:</strong> MuleSoft's own data — organizations deploying this architecture release new products and services <strong>2–5× faster</strong> with up to a <strong>90% decrease in project delivery costs</strong> for new applications. Every connection built once gets reused for the next initiative.</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);margin-top:5px;text-align:right;">Source: MuleSoft Application Network Whitepaper · Wells Fargo Gateway: developer.wellsfargo.com</div>
+    </div>
+  </div>
+  <div class="sf"><span>SOURCE: MULESOFT APPLICATION NETWORK WHITEPAPER · WELLS FARGO GATEWAY · ANYPOINT PLATFORM</span><div class="sf-line"></div><span>07 / 13</span></div>
+</section>
+
+<!-- ================================================================ SLIDE 8: ARCHITECTURE -->
+<section class="slide s-navy" id="s8" style="padding-bottom:80px;">
+  <div class="snum snum-lt">08 / 13</div>
+  <div class="eye eye-lt">MuleSoft Agent Fabric · Technical Architecture</div>
+  <h2 class="h2 h2-lt">The Nervous System for<br><span class="hl-o">62 Offices + CareStack + AI Agents</span></h2>
+  <p class="sub sub-lt">Agent Fabric is built on the Anypoint Platform you already own. It governs every agent, tool, and LLM call across your ecosystem — with a full audit trail that survives PE due diligence.</p>
+  <div class="arch" style="margin-bottom:18px;">
+    <div class="arch-row">
+      <div class="arch-col">
+        <div class="arch-col-t">Ingress · 62 Offices</div>
+        <div class="ab">CareStack PMS<br><small>62 instances</small></div>
+        <div class="ab">VoIP Systems<br><small>Legacy + Cloud</small></div>
+        <div class="ab">DoctorLogic<br><small>Webhook (live)</small></div>
+        <div class="ab">Salesforce<br><small>Growth CRM</small></div>
+        <div class="ab">Swell · Sikka<br><small>APIs (live)</small></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(255,255,255,0.2);text-align:center;margin-top:6px;">REST · MCP · Webhooks<br>SIPREC (VoIP)</div>
+      </div>
+      <div class="aa">→<br><span class="aa-s">MCP</span></div>
+      <div class="arch-col">
+        <div class="arch-col-t">MuleSoft Agent Fabric · Orchestration</div>
+        <div class="ab ab-blue" style="font-weight:600;">🔍 Agent Registry<br><small>All agents + tools<br>discoverable, cataloged</small></div>
+        <div class="ab ab-blue">🔄 Agent Broker<br><small>Multi-agent orchestration<br>Anypoint Code Builder</small></div>
+        <div class="ab ab-orange">🛡 Flex Gateway<br><small>HIPAA enforcement<br>PII masking · Rate limits</small></div>
+        <div class="ab ab-orange">👁 Agent Visualizer<br><small>Real-time audit trail<br>PE-ready observability</small></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(21,137,238,0.4);text-align:center;margin-top:6px;">BUILT ON ANYPOINT PLATFORM<br>EXISTING ENTITLEMENTS</div>
+      </div>
+      <div class="aa">→<br><span class="aa-s">A2A</span></div>
+      <div class="arch-col">
+        <div class="arch-col-t">AI Layer · Model-Agnostic</div>
+        <div class="ab ab-green">Claude (Anthropic)<br><small>Recruitment concierge<br>candidate outreach</small></div>
+        <div class="ab ab-green">GPT (OpenAI)<br><small>VoIP routing<br>task orchestration</small></div>
+        <div class="ab ab-green">Gemini (Google)<br><small>CareStack doc<br>reasoning · EMR</small></div>
+        <div class="ab ab-green">OpenClaw<br><small>Governed via<br>Flex Gateway</small></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(93,219,160,0.4);text-align:center;margin-top:6px;">SWAP LLMs WITHOUT<br>REBUILDING INTEGRATIONS</div>
+      </div>
+      <div class="aa">→<br><span class="aa-s">MCP</span></div>
+      <div class="arch-col">
+        <div class="arch-col-t">Actions + Outputs</div>
+        <div class="ab">query_carestack_schedule()<br><small>After-hours booking</small></div>
+        <div class="ab">update_recruitment_opp()<br><small>Salesforce CRM write</small></div>
+        <div class="ab">automate_referral_flow()<br><small>DoctorLogic→SF→CS<br>Kills 40-min process</small></div>
+        <div class="ab">board_reporting_feed()<br><small>62 offices unified<br>Norwest dashboard</small></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(255,255,255,0.2);text-align:center;margin-top:6px;">check_lease_expiration()<br>flag_pii_before_llm_call()</div>
+      </div>
+    </div>
+  </div>
+  <div class="g4">
+    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:13px 11px;text-align:center;"><div style="font-size:20px;font-weight:800;color:var(--orange);">Discover</div><div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:4px;">Agent Registry — all agents and MCP tools in one catalog.</div></div>
+    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:13px 11px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#7EC8FF;">Orchestrate</div><div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:4px;">Agent Broker routes tasks. Deterministic + non-deterministic flows.</div></div>
+    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:13px 11px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#5DDBA0;">Govern</div><div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:4px;">Flex Gateway enforces HIPAA policy and PII masking at runtime.</div></div>
+    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:13px 11px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#FFB366;">Observe</div><div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:4px;">Agent Visualizer: full audit trail. Every agent call logged and traceable.</div></div>
+  </div>
+  <div class="sf sf-lt"><span>SOURCE: MULESOFT AGENT FABRIC TECHNICAL OVERVIEW · © SALESFORCE 2026 · BUILT ON ANYPOINT · EXISTING ENTITLEMENTS</span><div class="sf-line sf-line-lt"></div><span>08 / 13</span></div>
+</section>
+
+<!-- ================================================================ SLIDE 9: OPENCLAW -->
+<section class="slide s-white" id="s9">
+  <div class="snum">09 / 13</div>
+  <div class="eye">OpenClaw Integration · Mark's Current Tooling</div>
+  <h2 class="h2">OpenClaw is a capability.<br><span class="hl">MuleSoft makes it enterprise-grade.</span></h2>
+  <p class="sub">OpenClaw as a standalone tool is a point-solution AI agent — powerful, but ungoverned. Agent Fabric is what makes it HIPAA-compliant, observable, and connected to CareStack and Salesforce.</p>
+  <div class="g2">
+    <div>
+      <div class="sbar" style="background:var(--red);">OpenClaw Standalone — Today</div>
+      <div class="card card-red" style="padding:16px 18px;margin-bottom:14px;">
+        <div class="fr"><span class="fi">🔴</span><span class="ft">No HIPAA audit trail — if OpenClaw touches PHI, who logged it and when?</span></div>
+        <div class="fr"><span class="fi">🔴</span><span class="ft">No CareStack integration — can't read live schedule without a purpose-built connector</span></div>
+        <div class="fr"><span class="fi">🔴</span><span class="ft">No Salesforce write-back — agent insights don't persist to CRM automatically</span></div>
+        <div class="fr"><span class="fi">🔴</span><span class="ft">No observability — PE due diligence: "show me every AI action on patient data"</span></div>
+        <div class="fr"><span class="fi">🔴</span><span class="ft">Point solution — when HighFive adds another AI tool, no unified governance policy</span></div>
+      </div>
+      <div class="sbar" style="background:var(--green);">OpenClaw + MuleSoft Agent Fabric</div>
+      <div class="card card-green" style="padding:16px 18px;">
+        <div class="fr"><span class="fi">✅</span><span class="ft">HIPAA audit trail — every OpenClaw action logged via Agent Visualizer, exportable</span></div>
+        <div class="fr"><span class="fi">✅</span><span class="ft">CareStack connector — OpenClaw can query live schedule and write booking data</span></div>
+        <div class="fr"><span class="fi">✅</span><span class="ft">Salesforce write-back — recruitment insights persist, no manual data entry</span></div>
+        <div class="fr"><span class="fi">✅</span><span class="ft">PII masking — patient data redacted before reaching OpenClaw's LLM</span></div>
+        <div class="fr"><span class="fi">✅</span><span class="ft">Model-agnostic — add Claude or GPT alongside OpenClaw without rebuilding</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="sbar">OpenClaw Registered in Agent Fabric</div>
+      <div style="background:#071525;border-radius:9px;padding:22px 18px;">
+        <div style="display:grid;grid-template-columns:1fr 36px 1fr;gap:0;align-items:center;margin-bottom:14px;">
+          <div style="text-align:center;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">OpenClaw Agent</div>
+            <div class="ab ab-orange" style="max-width:160px;margin:0 auto;">OpenClaw<br><small>AI Agent Engine<br>Mark's existing tool</small></div>
+          </div>
+          <div style="text-align:center;color:rgba(255,255,255,0.2);font-size:18px;">→</div>
+          <div style="text-align:center;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;">MAF Governance</div>
+            <div class="ab ab-blue" style="margin-bottom:6px;">Flex Gateway — PII masking · HIPAA</div>
+            <div class="ab ab-blue" style="margin-bottom:6px;">Agent Registry — governed asset</div>
+            <div class="ab ab-blue">Agent Visualizer — audit trail</div>
+          </div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+            <div class="ab">CareStack PMS<br><small>query_carestack_schedule()</small></div>
+            <div class="ab">Salesforce CRM<br><small>update_recruitment_opp()</small></div>
+            <div class="ab">Swell / DoctorLogic<br><small>Existing APIs via Fabric</small></div>
+            <div class="ab">Norwest Reporting<br><small>board_reporting_feed()</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="hb" style="margin-top:14px;"><strong>For Angela:</strong> OpenClaw governed through Flex Gateway means candidate and patient data is de-identified before the AI sees it. The Recruitment Concierge runs through the same governance layer — so every AI-assisted recruiter call has a clean audit trail and no HIPAA exposure.</div>
+    </div>
+  </div>
+  <div class="sf"><span>MODEL CONTEXT PROTOCOL (MCP) · A2A STANDARD · ANYPOINT PLATFORM · OPENCLAW REGISTERED AS GOVERNED ASSET</span><div class="sf-line"></div><span>09 / 13</span></div>
+</section>
+
+<!-- ================================================================ SLIDE 10: GOVERNANCE -->
+<section class="slide s-bg" id="s10">
+  <div class="snum">10 / 13</div>
+  <div class="eye">Security &amp; Compliance — Specific Controls</div>
+  <h2 class="h2">Governance.<br><span class="hl">Specific controls, not talking points.</span></h2>
+  <p class="sub">CareStack is HIPAA compliant at the PMS layer. That is not the same as governing AI agents that cross system boundaries. Here is the specific control map.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
+    <div class="card" style="border-left:4px solid var(--blue);">
+      <div style="font-size:13px;font-weight:700;margin-bottom:8px;">🔒 Runtime Policy Enforcement — Flex Gateway</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;">Every agent call — CareStack, OpenClaw, Salesforce — passes through Flex Gateway before execution. Out-of-the-box A2A and MCP policies enforce authentication, rate limits, and data classification. This is runtime control, not just design-time configuration.</div>
+      <div style="margin-top:9px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--blue);">↳ Control point: between every agent and every system</div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--orange);">
+      <div style="font-size:13px;font-weight:700;margin-bottom:8px;">🛡 PII Masking Before LLM Exposure</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;">Patient names, DOBs, treatment codes, SSNs are redacted by Flex Gateway before being sent to any external LLM — OpenClaw, OpenAI, Anthropic, or otherwise. AI operates on de-identified data. HIPAA safe-harbor pattern — identical to how Wells Fargo eliminates screen-scraping.</div>
+      <div style="margin-top:9px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange);">↳ PHI never leaves your perimeter in identifiable form</div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--green);">
+      <div style="font-size:13px;font-weight:700;margin-bottom:8px;">👁 Full Audit Trail — Agent Visualizer</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;">Real-time observability of every agent interaction — what was called, what data was accessed, which LLM responded, what action was taken. Exportable for HIPAA audit response and PE due diligence packages.</div>
+      <div style="margin-top:9px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green);">↳ Observable · traceable · exportable · PE-ready</div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--red);">
+      <div style="font-size:13px;font-weight:700;margin-bottom:8px;">🏥 Deployment — CloudHub or Runtime Fabric</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;">Agent Fabric deploys in CloudHub (managed) or Runtime Fabric (near your agentic endpoints for low latency). Healthcare-specific data residency compliance supported. High availability with regional fault isolation.</div>
+      <div style="margin-top:9px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--red);">↳ Your data stays where compliance requires it</div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy);margin-bottom:10px;">Certifications — Full Stack</div>
+      <div class="fr"><span class="fi">✅</span><span><strong>CareStack:</strong> HIPAA · SOC 2 Type 2 · ISO 27001:2022 · GDPR</span></div>
+      <div class="fr"><span class="fi">✅</span><span><strong>MuleSoft Anypoint:</strong> SOC 2 Type 2 · ISO 27001 · HIPAA BAA available · <strong>HITRUST CSF Certified</strong> (AWS + Hyperforce · Certificate current as of Feb 2026 · <a href="https://compliance.salesforce.com/en/services/mulesoft" target="_blank" rel="noopener" style="color:var(--blue);">compliance.salesforce.com</a>)</span></div>
+      <div class="fr"><span class="fi">✅</span><span><strong>Salesforce:</strong> FedRAMP · HIPAA · SOC 1/2/3 · ISO 27001/27018</span></div>
+      <div class="fr"><span class="fi">⚠️</span><span><strong>OpenClaw standalone:</strong> Verify HIPAA BAA status before any PHI exposure</span></div>
+      <div class="fr"><span class="fi">✅</span><span><strong>OpenClaw + MAF:</strong> PII masking ensures OpenClaw never receives identifiable data</span></div>
+    </div>
+    <div class="card card-navy">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:10px;">The Agent Sprawl Problem — Why Governance Can't Wait</div>
+      <div class="fr fr-dk"><span class="fi">⚡</span><span class="ft">CareStack VoiceStack™ deploys → Agent #1</span></div>
+      <div class="fr fr-dk"><span class="fi">⚡</span><span class="ft">Salesforce Agentforce launches at HighFive → Agent #2</span></div>
+      <div class="fr fr-dk"><span class="fi">⚡</span><span class="ft">OpenClaw processes candidate or patient inquiry → Agent #3</span></div>
+      <div class="fr fr-dk"><span class="fi">⚡</span><span class="ft">DoctorLogic adds AI lead scoring → Agent #4</span></div>
+      <div class="fr fr-dk" style="border-bottom:none;"><span class="fi" style="color:var(--red);">🔴</span><span class="ft"><strong style="color:white;">Without MAF:</strong> 4 agents · 4 audit trails · 0 unified HIPAA policy · 1 breach = full liability</span></div>
+      <div style="margin-top:14px;padding:9px 13px;background:rgba(255,121,0,0.12);border:1px solid rgba(255,121,0,0.28);border-radius:4px;font-size:12px;color:rgba(255,255,255,0.8);">Gartner calls this <strong style="color:var(--orange);">"agent sprawl"</strong> — the direct parallel to API fragmentation. MuleSoft was built to solve API sprawl. Agent Fabric solves agent sprawl.</div>
+    </div>
+  </div>
+  <div class="sf"><span>FLEX GATEWAY · AGENT REGISTRY · AGENT VISUALIZER · ANYPOINT PLATFORM · HIPAA BAA AVAILABLE</span><div class="sf-line"></div><span>10 / 13</span></div>
+</section>
+
+<!-- ================================================================ SLIDE 11: PE / NORWEST — FOR RYAN HARRIS -->
+<section class="slide s-navy" id="s11">
+  <div class="snum snum-lt">11 / 13</div>
+  <div class="eye eye-lt">For Dr. Ryan A. Harris · GP, Norwest Venture Partners · HighFive Board</div>
+  <h2 class="h2 h2-lt">The $25K decision is a<br><span class="hl-o">valuation decision for 2027–28.</span></h2>
+  <p class="sub sub-lt" style="max-width:700px;">Norwest invested $100M in HighFive in June 2023. The recapitalization window opens 2026–2028. The next buyer pays on EBITDA multiple. What determines the multiple is what a due diligence team finds when they open the hood.</p>
+  <div class="pe-numbers">
+    <div class="pe-card"><div class="pe-num">8×</div><div class="pe-label">EBITDA multiple for DSOs with fragmented, non-standardized technology operations at exit</div><div class="pe-sub">Illustrative industry benchmark · DSO transactions 2023–2025</div></div>
+    <div class="pe-card"><div class="pe-num">12×</div><div class="pe-label">EBITDA multiple for DSOs with standardized ops, unified data, and AI-ready infrastructure</div><div class="pe-sub">Illustrative industry benchmark · top-tier DSO transactions</div></div>
+    <div class="pe-card"><div class="pe-num">4pt</div><div class="pe-label">EBITDA multiple differential. On any projected HighFive EBITDA at recap scale, this is a transformative valuation gap</div><div class="pe-sub">Same business · same revenue · different infrastructure story</div></div>
+  </div>
+  <div class="eb-row"><div class="eb-label"><span>Fragmented systems · 12+ PMS · point solutions · no unified data (SDP today)</span><span>8× EBITDA</span></div><div class="eb-track"><div class="eb-fill eb-r">8× — Fragmented Ops</div></div></div>
+  <div class="eb-row" style="margin-bottom:20px;"><div class="eb-label"><span>Standardized ops · unified data layer · AI-ready · observable (HighFive 2027 target)</span><span>12× EBITDA</span></div><div class="eb-track"><div class="eb-fill eb-g">12× — Platform Business</div></div></div>
+  <div class="g2">
+    <div class="card-dark">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:10px;">What the Integration Layer Delivers for Norwest Reporting</div>
+      <div class="fr fr-dk"><span class="fi">✅</span><span class="ft">Same-store growth data across all 62+ offices — unified, real-time, not manually compiled</span></div>
+      <div class="fr fr-dk"><span class="fi">✅</span><span class="ft">RCM performance visibility across all PMS variants — Norwest sees what's actually happening</span></div>
+      <div class="fr fr-dk"><span class="fi">✅</span><span class="ft">Doctor recruitment pipeline in Salesforce — close rate data is credible and traceable</span></div>
+      <div class="fr fr-dk"><span class="fi">✅</span><span class="ft">CareStack rollout analytics — per-office integration status, go-live tracking</span></div>
+      <div class="fr fr-dk" style="border-bottom:none;"><span class="fi">✅</span><span class="ft">AI-ready data foundation — future buyer's due diligence is a dashboard, not a data room scramble</span></div>
+    </div>
+    <div class="card-dark">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:10px;">SDP Proof — What Reactive Integration Costs (Same Vintage)</div>
+      <div class="fr fr-dk"><span class="fi">🔴</span><span class="ft">SDP founded 2018 — same year as HighFive — now 3.6× larger with no integration layer</span></div>
+      <div class="fr fr-dk"><span class="fi">🔴</span><span class="ft">Hit the wall at 200+ locations with 12 PMS systems and no unified RCM capability</span></div>
+      <div class="fr fr-dk"><span class="fi">🔴</span><span class="ft">Deployed Pearly (A/R band-aid) then Coupa (spend band-aid) — each solving one layer only</span></div>
+      <div class="fr fr-dk"><span class="fi">🔴</span><span class="ft">CEO publicly stated Jan 2026: "We're going to make mistakes" on technology</span></div>
+      <div class="fr fr-dk" style="border-bottom:none;"><span class="fi">🔴</span><span class="ft">No unified AI foundation despite $325M raised and 275+ locations</span></div>
+    </div>
+  </div>
+  <div style="margin-top:18px;background:rgba(255,121,0,0.1);border:1px solid rgba(255,121,0,0.25);border-radius:7px;padding:16px 20px;">
+    <div style="font-size:14px;color:rgba(255,255,255,0.9);line-height:1.7;">
+      <strong style="color:var(--orange);">The ask for Dr. Harris:</strong> $25K over 6 months keeps the integration foundation alive long enough to prove what it delivers — with documented milestones and a clean go/no-go at month 6. HighFive is at 62 offices — the right moment to build the foundation is before the wall hits, not after.<br><br>
+      <em style="color:rgba(255,255,255,0.45);font-size:12px;">Note: 8× and 12× represent illustrative industry benchmark ranges based on DSO M&amp;A activity 2023–2025. Actual multiples vary by deal structure, market conditions, and buyer profile. Not a projection or guarantee.</em>
+    </div>
+  </div>
+  <div class="sf sf-lt"><span>NORWEST VENTURE PARTNERS · NVP XVII · $3B CLOSED APR 2024 · HIGHFIVE BOARD: DR. RYAN A. HARRIS + DAVID WILLENS</span><div class="sf-line sf-line-lt"></div><span>RECAPITALIZATION WINDOW: 2026–2030 · SWEET SPOT: 2027–28</span></div>
+</section>
+
+<!-- ================================================================ SLIDE 12: PROPOSAL -->
+<section class="slide s-bg" id="s12">
+  <div class="snum">12 / 13</div>
+  <div class="eye">The Proposal</div>
+  <h2 class="h2">6 months. $25K. <span class="hl">Milestones. No ambiguity.</span></h2>
+  <p class="sub">A structured proof-of-value with documented deliverables and a clean go/no-go at month 6. Signature requested by March 31, 2026.</p>
+  <div class="pbox" style="margin-bottom:18px;">
+    <div class="pbox-top">
+      <div><div class="pbox-title">HighFive Healthcare × MuleSoft · 6-Month Bridge</div><div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:3px;">April 29 – October 29, 2026 · Current entitlements maintained · No new procurement required to start</div></div>
+      <div style="text-align:right;"><div class="pbox-price">$25,000</div><div class="pbox-price-label">6-Month · ~$4,167/mo · Current rate maintained</div></div>
+    </div>
+    <div class="pbox-body">
+      <div>
+        <div class="pbox-stitle">Included in 6-Month Term</div>
+        <div class="ii"><span class="chk">✓</span> Full Anypoint Platform access — current entitlements, no change</div>
+        <div class="ii"><span class="chk">✓</span> MuleSoft Agent Fabric scoping for VoIP pilot + OpenClaw governance design</div>
+        <div class="ii"><span class="chk">✓</span> CareStack integration architecture blueprint (Deliverable: Month 1)</div>
+        <div class="ii"><span class="chk">✓</span> OpenClaw HIPAA governance layer — Flex Gateway PII masking configuration</div>
+        <div class="ii"><span class="chk">✓</span> DoctorLogic → Salesforce → CareStack referral automation (eliminates 40-min process)</div>
+        <div class="ii"><span class="chk">✓</span> Recruitment Concierge pilot — VoIP + Salesforce + AI candidate briefing</div>
+        <div class="ii"><span class="chk">✓</span> ROI + governance package for Norwest board reporting (Deliverable: Month 6)</div>
+        <div class="ii"><span class="chk">✓</span> Option: convert to full annual at current rate at Month 6 — or structured off-board</div>
+      </div>
+      <div>
+        <div class="pbox-stitle">6-Month Milestones</div>
+        <div class="mi"><div class="mo">Mo 1</div><div class="mt"><strong>Architecture Blueprint.</strong> CareStack integration map. VoIP API audit across 62 offices. OpenClaw Agent Registry registration. Flex Gateway PII masking live.</div></div>
+        <div class="mi"><div class="mo">Mo 2</div><div class="mt"><strong>Referral Automation Live <span style="background:var(--amber-lt);color:var(--amber);font-size:10px;padding:1px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-weight:600;">Optional if adding IDP</span></strong><br>DoctorLogic → Salesforce → CareStack automated. 40-min process eliminated. First documented ROI.</div></div>
+        <div class="mi"><div class="mo">Mo 3</div><div class="mt"><strong>OpenClaw + MAF Pilot.</strong> OpenClaw governed under Flex Gateway. Recruitment Concierge active. 1-office VoIP Agent Fabric pilot launched.</div></div>
+        <div class="mi"><div class="mo">Mo 4</div><div class="mt"><strong>VoIP Scale — 10 Offices.</strong> Agent Fabric scaled. After-hours CareStack booking via AI agent live at 10 locations.</div></div>
+        <div class="mi"><div class="mo">Mo 5</div><div class="mt"><strong>Operational Intelligence.</strong> MuleSoft monitors live data streams — CareStack production metrics, Salesforce pipeline activity, VoIP call patterns — for defined trigger keywords (e.g. "cancellation," "no-show spike," "capacity"). When a trigger fires, Salesforce updates automatically: a flag on the account, a task assigned to the right person, or an alert to Angela's team — no manual monitoring required. In parallel, the Norwest reporting pipeline aggregates same-store growth, RCM performance, and doctor headcount across all 62 offices into a single unified feed, replacing the manual board-deck data pull.</div></div>
+        <div class="mi"><div class="mo">Mo 6</div><div class="mt"><strong>Go/No-Go + ROI Package.</strong> Documented ROI. Full agent audit trail exportable for Norwest. Annual renewal or clean off-board at current rate.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hb hb-blue" style="margin-bottom:14px;"><strong>Note for Dr. Harris:</strong> Espire Dental (CareStack customer, 30+ locations) required an integration layer to process 27 million API calls and unify its CareStack data across locations. HighFive is at 62 offices and scaling. The foundation is cheaper to build at 62 than at 200. Wells Fargo built their entire Banking-as-a-Service platform on this architecture — the same three-layer approach, applied to your stack.</div>
+
+  <!-- SIGNATURE BOX -->
+  <div class="sig-box">
+    <div class="sig-deadline">⚠ Signature Requested by March 31, 2026 — to preserve April 29 renewal timeline</div>
+    <div class="sig-grid">
+      <div>
+        <div class="sig-field" style="height:36px;">&nbsp;</div>
+        <div class="sig-label">Authorized Signature · HighFive Healthcare</div>
+        <div class="sig-field" style="margin-top:14px;height:36px;">&nbsp;</div>
+        <div class="sig-label">Printed Name &amp; Title</div>
+      </div>
+      <div>
+        <div class="sig-field" style="height:36px;">&nbsp;</div>
+        <div class="sig-label">Date</div>
+        <div class="sig-field" style="margin-top:14px;height:36px;">&nbsp;</div>
+        <div class="sig-label">Authorized Signature · MuleSoft from Salesforce</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span>CURRENT ARR: $44K MULESOFT + $20.6K CRM = $64K TOTAL</span><div class="sf-line"></div><span>PROPOSAL: $25K / 6-MO · SIGNATURE DUE: MAR 31, 2026</span></div>
+</section>
+
+<!-- ================================================================ SLIDE 13: NEXT STEPS -->
+<section class="slide s-navy" id="s13">
+  <div class="snum snum-lt">13 / 13</div>
+  <div class="eye eye-lt">Actions This Week</div>
+  <h2 class="h2 h2-lt">Three actions.<br><span class="hl-o">This week.</span></h2>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-title">Mark Confirms 6-Month Term</div>
+      <div class="step-desc">$25K · Apr 29 – Oct 29, 2026. Current entitlements. No new procurement. <strong style="color:var(--orange);">Signature due March 31</strong> to preserve the April 29 renewal timeline. Avoids a cancellation decision under time pressure.</div>
+      <div class="step-who">↳ Mark Edwards · 615-630-1063</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-title">Knox Richardson + Angela — Technical &amp; Growth Session</div>
+      <div class="step-desc">30-minute working session to scope the CareStack integration map, Recruitment Concierge design, and OpenClaw Agent Registry. Week of March 17. Unlocks Month 1 and Month 3 deliverables on schedule.</div>
+      <div class="step-who">↳ Knox Richardson + Angela Trull · Wk Mar 17</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-title">Mark Forwards Slide 11 to Dr. Ryan Harris</div>
+      <div class="step-desc">Slide 11 is designed as a standalone 90-second read for Dr. Harris. Frames $25K as a PE valuation decision for the 2027–28 recap window. Board-level air cover before April 29.</div>
+      <div class="step-who">↳ Dr. Ryan A. Harris · GP, Norwest · Board Seat</div>
+    </div>
+  </div>
+
+  <!-- CONSENSUS CTA -->
+  <div style="margin-top:22px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:18px 22px;display:flex;align-items:center;gap:18px;">
+    <div style="flex:1;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px;">Interactive Demo</div>
+      <div style="font-size:15px;font-weight:700;color:white;">Watch the MuleSoft Intelligent Document Processing platform in action — 3-minute interactive demo</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:4px;">Share with your team, Knox Richardson, and Dr. Harris.</div>
+    </div>
+    <a class="btn-consensus" href="https://play.goconsensus.com/a382cb529" target="_blank" rel="noopener">
+      <span class="play">▶</span>
+      Watch Demo
+    </a>
+  </div>
+
+  <div class="cbar">
+    <div class="ci">
+      <div class="ci-label">Decision — Signature by Mar 31</div>
+      <div class="ci-name">Mark Edwards, PMP</div>
+      <div class="ci-role">VP Technology Innovation · HighFive</div>
+      <div class="ci-info">615-630-1063 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="430e2231286d06273422312730032b2a242b762b26222f372b6d202c2e">[email&#160;protected]</a></div>
+    </div>
+    <div class="ci">
+      <div class="ci-label">Growth + Technical</div>
+      <div class="ci-name">Angela Trull + Knox Richardson</div>
+      <div class="ci-role">CGO + Director Digital Transformation</div>
+      <div class="ci-info">Architecture + Recruitment Concierge · Wk Mar 17</div>
+    </div>
+    <div class="ci">
+      <div class="ci-label">Board Forward — Slide 11</div>
+      <div class="ci-name">Dr. Ryan A. Harris</div>
+      <div class="ci-role">GP · Norwest Venture Partners · Board</div>
+      <div class="ci-info">$100M invested Jun 2023 · Recap 2027–28</div>
+    </div>
+  </div>
+  <div style="margin-top:16px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.15);letter-spacing:0.08em;">
+    SOURCES: ZOOMINFO · GARTNER AUG 2025 · CARESTACK.COM · PEARLY CASE STUDY 2024 · BECKER'S DENTAL JAN 2026 · PR NEWSWIRE NOV 2025 · MULESOFT APPLICATION NETWORK WHITEPAPER · WELLS FARGO GATEWAY · MAF TECHNICAL OVERVIEW © SALESFORCE 2026
+  </div>
+  <div class="sf sf-lt"><span>MULESOFT HEALTHCARE · PROVIDER SEGMENT · MARCH 2026 · CONFIDENTIAL</span><div class="sf-line sf-line-lt"></div><span>HIGHFIVE: 0010M00001XxvI6QAJ · ZI: 472210026</span></div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var tabs = document.querySelectorAll('.nav-tab');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var target = this.getAttribute('data-target');
+      var el = document.getElementById(target);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  var slides = document.querySelectorAll('.slide');
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting && e.intersectionRatio > 0.4) {
+        var i = Array.prototype.indexOf.call(slides, e.target);
+        tabs.forEach(function(t) { t.classList.remove('active'); });
+        if (tabs[i]) tabs[i].classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+  slides.forEach(function(s) { obs.observe(s); });
+});
+</script>
+</body>
+</html>
