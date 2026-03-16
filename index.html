@@ -995,9 +995,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var slides = document.querySelectorAll('.slide');
 
-  /* ── ENGAGEMENT BEACON ── */
-  var SUPABASE_URL = 'https://cnplogkxbjecdeeritdl.supabase.co';
-  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNucGxvZ2t4YmplY2RlZXJpdGRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMjAzMTUsImV4cCI6MjA4Nzg5NjMxNX0.WJ6edMljHiY-fku9G2OWm83y5wHWI5yZHvxtpYMCuWU';
+  /* ── ENGAGEMENT BEACON (via Vercel — captures visitor IP server-side) ── */
+  var BEACON_URL = 'https://smokin-territory.vercel.app/api/beacon';
   var PROPOSAL_ID = 'highfive-proposal';
 
   // Generate a unique session ID per visit
@@ -1017,18 +1016,12 @@ document.addEventListener('DOMContentLoaded', function() {
       var body = Object.assign({
         proposal_id: PROPOSAL_ID,
         session_id: sessionId,
-        referrer: referrer,
-        user_agent: navigator.userAgent.substring(0, 200)
+        referrer: referrer
       }, payload);
 
-      fetch(SUPABASE_URL + '/rest/v1/proposal_engagement', {
+      fetch(BEACON_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_KEY,
-          'Authorization': 'Bearer ' + SUPABASE_KEY,
-          'Prefer': 'return=minimal'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
         keepalive: true
       });
